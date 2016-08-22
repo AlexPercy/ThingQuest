@@ -17,7 +17,6 @@ public class AIControls : MonoBehaviour {
     void Start()
     {
         gameController = this.gameObject.GetComponent<GameController>();
-        timer = 120;
     }
 
     /*public void doTurn()
@@ -85,7 +84,7 @@ public class AIControls : MonoBehaviour {
         }
     }
 
-    public int timer;
+    /*public int timer;
 
     void FixedUpdate()
     {
@@ -103,8 +102,8 @@ public class AIControls : MonoBehaviour {
                 }
             }
         }
-    }
-
+    }*/
+    
     /*IEnumerator timer()
     {
         System.Threading.Thread.Sleep(1000);
