@@ -59,7 +59,7 @@ public class AIControls : MonoBehaviour {
             else
             {
                 //do not
-                //i dont think we need this 'else' block
+                //reset curmove values? this current system makes once-per-turn effects difficult...
             }
         }
     }

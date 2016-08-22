@@ -45,6 +45,10 @@ public class PlayerControls : MonoBehaviour {
                 playerHasControl = false;
             }
         }
+		else
+		{
+			playerHasControl = false;
+		}
     }
 
     /*public void Turn_Player()

@@ -5,19 +5,25 @@ public class GameController : MonoBehaviour {
 
     PlayerControls playerControls;
     //AIControls aiControls;
+
     public bool playersTurn;
-    public bool gameOver;
+	public bool gameplayHapen;
+
+	public bool gameOver;
     public bool playerIsWinning;
-    public bool gameplayHapen;
+	public bool handlingGameOver;
+    
 
     void Start()
     {
         playerControls = this.gameObject.GetComponent<PlayerControls>();
-        //aiControls = this.gameObject.GetComponent<AIControls>();
+		//aiControls = this.gameObject.GetComponent<AIControls>();
+		
+		gameplayHapen = true;//this should probably start false for cutscenes/whatever?
 
-        gameOver = false;
+		gameOver = false;
         playerIsWinning = false;
-        gameplayHapen = true;//this should probably start false for cutscenes/whatever?
+		handlingGameOver = false;
 
         //playerControls.playerHasControl = false;
         //Level_Start();
@@ -57,27 +63,33 @@ public class GameController : MonoBehaviour {
 
     void Update()
     {
-        if(gameOver)
-        {
-            gameplayHapen = false;
-            playerControls.playerHasControl = false;
+        if(!handlingGameOver)
+		{
+			if (gameOver)
+			{
+				gameplayHapen = false;
+				playerControls.playerHasControl = false;
+				handlingGameOver = true;
 
-            if (playerIsWinning)
-            {
-                //player wins!
-                print("ya done it");
-                //do cutscene
-                //move onto next level/customisation screen/whatever
-            }
+				if (playerIsWinning)
+				{
+					//player wins!
 
-            else
-            {
-                //player loses :(
-                print("ya done goofed");
-                //do game over cutscene
-                //go back to last customisation screen
-            }
-        }
+					print("ya done it");
+					//do cutscene
+					//move onto next level/customisation screen/whatever
+				}
+
+				else
+				{
+					//player loses :(
+
+					print("ya done goofed");
+					//do game over cutscene
+					//go back to last customisation screen
+				}
+			}
+		}
     }
 
     
