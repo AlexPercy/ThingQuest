@@ -6,11 +6,10 @@ public class AIControls : MonoBehaviour {
     GameController gameController;
 
     public BaseEnemy[] aiUnits;
-    public int numAiUnits;
+    public int numAiUnits;//set value in scene
 
     void Awake()
     {
-        //numAiUnits = 6;//default, testing value. comment out & set in the scene
         aiUnits = new BaseEnemy[numAiUnits];
     }
 
@@ -18,11 +17,6 @@ public class AIControls : MonoBehaviour {
     {
         gameController = this.gameObject.GetComponent<GameController>();
     }
-
-    /*public void doTurn()
-    {
-
-    }*/
 
     void Update()
     {
@@ -32,22 +26,12 @@ public class AIControls : MonoBehaviour {
             {
                 //do ya thing
 
-                /*foreach (BaseEnemy unit in aiUnits)
-                {
-                    unit.doTurn();
-                }*/
-
                 for(int i = 0; i <= (numAiUnits - 1); i++)
                 {
-                    /*if(aiUnits[i].class_ == BaseChar.classes.barbarian)
-                    {
-                        ((En_Barbarian)aiUnits[i]).doTurn();
-                    }*/
-
                     switch(aiUnits[i].class_)
                     {
                         case BaseChar.classes.barbarian:
-                            ((En_Barbarian)aiUnits[i]).doTurn();
+                            ((En_Barbarian)aiUnits[i]).doTurn();//apparently stuff in an array becomes the type of the array? so en_barbs become BaseEnemys and need to be casted back to en_barbs
                             break;
                         case BaseChar.classes.cleric:
                             //((En_Cleric)aiUnits[i]).doTurn();
@@ -65,21 +49,17 @@ public class AIControls : MonoBehaviour {
                             //((En_Rogue)aiUnits[i]).doTurn();
                             break;
                         default:
-                            print("error");
+                            print("how did you even manage this");
                             break;
                     }
                 }
 
-                /*StartCoroutine(timer());
-                print("mid-pause");
-                StartCoroutine(timer());*/
-
-                //gameController.playersTurn = true;
+                gameController.playersTurn = true;
             }
             else
             {
                 //do not
-                //i dont think we need this 'else'
+                //i dont think we need this 'else' block
             }
         }
     }
@@ -102,11 +82,5 @@ public class AIControls : MonoBehaviour {
                 }
             }
         }
-    }*/
-    
-    /*IEnumerator timer()
-    {
-        System.Threading.Thread.Sleep(1000);
-        yield return null;
     }*/
 }
