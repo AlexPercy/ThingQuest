@@ -92,5 +92,16 @@ public class GameController : MonoBehaviour {
 		}
     }
 
-    
+    public void EndTurn(bool isPlayer)
+	{
+		if(isPlayer)
+		{
+			playersTurn = false;
+		}
+
+		else
+		{
+			playersTurn = true;
+		}
+	}
 }

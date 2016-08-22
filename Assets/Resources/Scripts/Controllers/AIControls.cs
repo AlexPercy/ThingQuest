@@ -54,8 +54,10 @@ public class AIControls : MonoBehaviour {
                     }
                 }
 
-                gameController.playersTurn = true;
-            }
+				//gameController.playersTurn = true;
+				gameController.EndTurn(false);
+			}
+
             else
             {
                 //do not

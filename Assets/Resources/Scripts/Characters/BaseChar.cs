@@ -61,4 +61,16 @@ public class BaseChar : MonoBehaviour {
         }
     }
 
+	public void Move(int xTarget, int yTarget)
+	{
+		if(yTarget != bYCoord)
+		{
+
+		}
+
+		if(xTarget != bXCoord)
+		{
+
+		}
+	}
 }
