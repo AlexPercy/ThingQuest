@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PC_Knight : BaseChar {
-
-    public static Object prefab;
+public class PC_Knight : BasePC {
 
     public static void Create(races r, int x, int y)
     {
@@ -16,16 +14,18 @@ public class PC_Knight : BaseChar {
 
         character.maxHealth = 8;
         character.curHealth = character.maxHealth;
+
         character.maxEnergy = 3;
         character.curEnergy = character.maxEnergy;
+
         character.maxMoves = 2;
         character.curMoves = character.maxMoves;
+		character.canMove = true;
 
         character.bXCoord = x;
         character.bYCoord = y;
 
-
-        character.selectable = true;
+        character.controllable = true;
 
         
     }

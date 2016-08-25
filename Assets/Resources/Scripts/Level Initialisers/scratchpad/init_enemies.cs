@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class init_enemies : MonoBehaviour {
+public class Init_Enemies : MonoBehaviour {
 
     AIControls aiControls;
 

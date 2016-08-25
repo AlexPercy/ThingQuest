@@ -3,7 +3,7 @@ using System.Collections;
 
 public class En_Barbarian : BaseEnemy {
 
-    new public static Object prefab;//use of 'new' ensures hiding
+    //new public static Object prefab;//use of 'new' ensures hiding//dont need to though
 
 	public static En_Barbarian Create(races r, int x, int y)
     {
@@ -34,4 +34,9 @@ public class En_Barbarian : BaseEnemy {
     {
         print("great success");
     }
+
+	public void En_Move(int xTarget, int yTarget)
+	{
+
+	}
 }

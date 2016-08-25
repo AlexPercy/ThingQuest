@@ -15,7 +15,7 @@ public class RedTile : Tile {
         floorTile.type = "red";
         floorTile.bXCoord = x;
         floorTile.bYCoord = y;
-        floorTile.walkable = true;
+        floorTile.traversable = true;
 
         return floorTile;
     }

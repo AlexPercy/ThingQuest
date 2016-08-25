@@ -17,7 +17,7 @@ public class BlankTile : Tile {
         floorTile.type = "blank";
         floorTile.bXCoord = x;
         floorTile.bYCoord = y;
-        floorTile.walkable = true;
+        floorTile.traversable = true;
 
         return floorTile;
 	}

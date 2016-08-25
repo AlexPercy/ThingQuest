@@ -15,7 +15,7 @@ public class BlueTile : Tile {
         floorTile.type = "blue";
         floorTile.bXCoord = x;
         floorTile.bYCoord = y;
-        floorTile.walkable = w;
+        floorTile.traversable = w;
 
         return floorTile;
     }
