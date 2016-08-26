@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Tile : MonoBehaviour
+public class BaseTile : MonoBehaviour
 {
 
     public const float coordConv = 3.2f;

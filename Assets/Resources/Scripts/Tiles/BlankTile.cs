@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BlankTile : Tile {
+public class BlankTile : BaseTile {
 
     public static Object prefab;
 

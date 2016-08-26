@@ -5,14 +5,14 @@ public class Init_Floor : MonoBehaviour {
 
     public enum colour { blank, red, blue };
     //public colour tileColour;
-    public Tile[,] floor;
+    public BaseTile[,] floor;
 	public int floorXSize;
 	public int floorYSize;
 
     void Awake ()
     {
 
-        floor = new Tile[floorXSize, floorYSize];
+        floor = new BaseTile[floorXSize, floorYSize];
 
         for (int j = 0; j < floorYSize; j++)
         {

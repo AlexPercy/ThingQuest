@@ -48,8 +48,8 @@ public class BaseChar : MonoBehaviour {
             {
                 playerControls.selected = this;//you can select both controllable and non-controllable units (so you can see unit descs or w/e)
 
-				playerControls.actionMode = PlayerControls.ActionMode.targeting;
-				playerControls.targetingMode = PlayerControls.TargetingMode.move;
+				//playerControls.actionMode = PlayerControls.ActionMode.targeting;
+				//playerControls.targetingMode = PlayerControls.TargetingMode.move;
             }
 
             if (playerControls.actionMode == PlayerControls.ActionMode.targeting)//if we're currently trying to target something
@@ -70,7 +70,7 @@ public class BaseChar : MonoBehaviour {
 	public enum direction { up, down, left, right};
 	public void MoveSquare(direction d)
 	{
-
+		print(gameObject.transform.name.ToString() + " moved " + d.ToString() + "!");
 	}
 
 	public bool canMove;
@@ -87,8 +87,8 @@ public class BaseChar : MonoBehaviour {
 	public void PC_Move(int xTarget, int yTarget)//maybe move all this to basepc and write a separate thing for ai
 	{
 		validTiles = 0;
-		xMoveDist = (bXCoord - xTarget);
-		yMoveDist = (bYCoord - yTarget);
+		xMoveDist = (xTarget - bXCoord);
+		yMoveDist = (yTarget - bYCoord);
 
 		if((curMoves >= xMoveDist) && (curMoves >= yMoveDist))
 		{
