@@ -22,8 +22,9 @@ public class PC_Knight : BasePC {
         character.curMoves = character.maxMoves;
 		character.canMove = true;
 
-        character.bXCoord = x;
-        character.bYCoord = y;
+		//character.bXCoord = x;
+		//character.bYCoord = y;
+		character.RefreshCoords();
 
         character.controllable = true;
 

@@ -26,18 +26,15 @@ public class BaseTile : MonoBehaviour
 		{
 			if (Input.GetMouseButtonDown(0))//if we're left clicking
 			{
-				if (playerControls.actionMode == PlayerControls.ActionMode.targeting)//if we're currently trying to target something
+				if (playerControls.actionMode == PlayerControls.ActionMode.targeting_move)//if we're currently trying to target something
 				{
-					if (playerControls.targetingMode == PlayerControls.TargetingMode.move)//if we're targeting a move command
-					{
-						playerControls.moveTarget = this;
-						//need to find a way to move this into basechar//the tile reference is passed to playercontrols, which can then pass it to the selected unit reference i guess?
-					}
+					playerControls.moveTarget = this;
+					//need to find a way to move this into basechar//the tile reference is passed to playercontrols, which can then pass it to the selected unit reference i guess?
+				}
 
-					else if (playerControls.targetingMode == PlayerControls.TargetingMode.aoe)//if we're targeting the centrepoint of an aoe
-					{
-						playerControls.aoeTarget = this;
-					}
+				else if (playerControls.actionMode == PlayerControls.ActionMode.targeting_aoe)//if we're targeting the centrepoint of an aoe
+				{
+					playerControls.aoeTarget = this;
 				}
 			}
 		}

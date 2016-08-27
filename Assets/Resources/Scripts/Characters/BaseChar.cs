@@ -8,11 +8,9 @@ public class BaseChar : MonoBehaviour {
 	public static Object prefab;
 	public PlayerControls playerControls;
 	public Init_Floor init_Floor;
-    
-    /*public enum sexes { male, female };
-    public sexes sex;*/
 
-    public enum races { human, elf, orc, dwarf };
+
+	public enum races { human, elf, orc, dwarf };
     public races race;
 
     public enum classes { barbarian, knight, rogue, ranger, mage, cleric };
@@ -20,12 +18,21 @@ public class BaseChar : MonoBehaviour {
 
     public int maxHealth;
     public int curHealth;
+
     public int maxEnergy;
     public int curEnergy;
+
     public int maxMoves;
     public int curMoves;
 
-    public int bXCoord;
+	public bool canMove;//i forget what this was for. i dont think it was for roots or anything. i think its deprecated
+	public int validTiles;
+	public int xMoveDist;
+	public int yMoveDist;
+	public enum direction { up, down, left, right };
+
+
+	public int bXCoord;
     public int bYCoord;
 
     public bool controllable = false;
@@ -40,6 +47,12 @@ public class BaseChar : MonoBehaviour {
 		init_Floor = GameObject.Find("Level Controller").GetComponent<Init_Floor>();
     }
 
+	public void RefreshCoords()
+	{
+		bXCoord = (int)(gameObject.transform.position.x / coordConv);
+		bYCoord = (int)(gameObject.transform.position.y / coordConv);
+	}
+
     void OnMouseOver()
     {
         if (Input.GetMouseButtonUp(0))//if we're left clicking
@@ -52,31 +65,17 @@ public class BaseChar : MonoBehaviour {
 				//playerControls.targetingMode = PlayerControls.TargetingMode.move;
             }
 
-            if (playerControls.actionMode == PlayerControls.ActionMode.targeting)//if we're currently trying to target something
+			if (playerControls.actionMode == PlayerControls.ActionMode.targeting_unit)//if we're currently trying to target something
+			{
+				playerControls.unitTarget = this;
+			}
+
+			/*else if (false)//clicking through?
             {
-                if (playerControls.targetingMode == PlayerControls.TargetingMode.unit)//if we're targeting a move command
-                {
-                    playerControls.unitTarget = this;
-                }
-
-                /*else if (false)//clicking through?
-                {
-
-                }*/
-            }
+			
+			}*/
         }
     }
-
-	public enum direction { up, down, left, right};
-	public void MoveSquare(direction d)
-	{
-		print(gameObject.transform.name.ToString() + " moved " + d.ToString() + "!");
-	}
-
-	public bool canMove;
-	public int validTiles;
-	public int xMoveDist;
-	public int yMoveDist;
 
 	public void OnRightClick()
 	{
@@ -84,15 +83,43 @@ public class BaseChar : MonoBehaviour {
 		//	do the right-click menu
 	}
 
-	public void PC_Move(int xTarget, int yTarget)//maybe move all this to basepc and write a separate thing for ai
+
+	public void MoveSquare(direction d)
+	{
+		if (d == direction.right)
+		{
+			gameObject.transform.position = new Vector3(gameObject.transform.position.x + coordConv, gameObject.transform.position.y);
+		}
+
+		else if (d == direction.left)
+		{
+			gameObject.transform.position = new Vector3(gameObject.transform.position.x - coordConv, gameObject.transform.position.y);
+		}
+
+		else if (d == direction.up)
+		{
+			gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + coordConv);
+		}
+
+		else if (d == direction.down)
+		{
+			gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - coordConv);
+		}
+
+		RefreshCoords();
+		print(gameObject.transform.name.ToString() + " moved " + d.ToString() + "!");
+	}
+
+	public void PC_Move(int xTarget, int yTarget)//    Make it check to see if there's a unit on the tile too
 	{
 		validTiles = 0;
-		xMoveDist = (xTarget - bXCoord);
-		yMoveDist = (yTarget - bYCoord);
+		xMoveDist = Mathf.Abs((xTarget - bXCoord));
+		yMoveDist = Mathf.Abs((yTarget - bYCoord));
 
 		if((curMoves >= xMoveDist) && (curMoves >= yMoveDist))
 		{
-			if ((xTarget > bXCoord) && (yTarget == bYCoord))//MOVING RIGHT
+			//----------------MOVING RIGHT----------------
+			if ((xTarget > bXCoord) && (yTarget == bYCoord))
 			{
 				for (int i = 1; i <= xMoveDist; i++)//check to see if all the tiles you'd have to cross are traversable
 				{
@@ -104,21 +131,21 @@ public class BaseChar : MonoBehaviour {
 
 				if (validTiles == xMoveDist)//if they all are traversable
 				{
-					//do move
-					for (int i = 1; i <= (bXCoord - xTarget); i++)
+					print("do move");//do move
+					for (int i = 1; i <= xMoveDist; i++)
 					{
 						MoveSquare(direction.right);
 						curMoves--;
 					}
 				}
 
-				else if (validTiles < (bXCoord - xTarget))//if one or more isn't traversable
+				else if (validTiles < xMoveDist)//if one or more isn't traversable
 				{
 					//dont move
 					print((xMoveDist - validTiles) + " not traversable");
 				}
 
-				else if (validTiles > (bXCoord - xTarget))//if there's more traversable tiles than tiles (debugging)
+				else if (validTiles > xMoveDist)//if there's more traversable tiles than tiles (debugging)
 				{
 					print("error: xMoveDist = " + xMoveDist + ", validTiles = " + validTiles);
 				}
@@ -129,25 +156,132 @@ public class BaseChar : MonoBehaviour {
 				}
 			}
 
-			else if ((xTarget < bXCoord) && (yTarget == bYCoord))//MOVING LEFT
+			//----------------MOVING LEFT----------------
+			else if ((xTarget < bXCoord) && (yTarget == bYCoord))
 			{
+				for (int i = 1; i <= xMoveDist; i++)//check to see if all the tiles you'd have to cross are traversable
+				{
+					if (init_Floor.floor[(bXCoord - i), bYCoord].traversable)
+					{
+						validTiles++;
+					}
+				}
 
+				if (validTiles == xMoveDist)//if they all are traversable
+				{
+					print("do move");//do move
+					for (int i = 1; i <= xMoveDist; i++)
+					{
+						MoveSquare(direction.left);
+						curMoves--;
+					}
+				}
+
+				else if (validTiles < xMoveDist)//if one or more isn't traversable
+				{
+					//dont move
+					print((xMoveDist - validTiles) + " not traversable");
+				}
+
+				else if (validTiles > xMoveDist)//if there's more traversable tiles than tiles (debugging)
+				{
+					print("error: xMoveDist = " + xMoveDist + ", validTiles = " + validTiles);
+				}
+
+				else//somehow something else (debugging)
+				{
+					print("wtf");
+				}
 			}
 
-			else if ((xTarget == bXCoord) && (yTarget > bYCoord))//MOVING UP
+			//----------------MOVING UP----------------
+			else if ((xTarget == bXCoord) && (yTarget > bYCoord))
 			{
+				for (int i = 1; i <= yMoveDist; i++)//check to see if all the tiles you'd have to cross are traversable
+				{
+					if (init_Floor.floor[bXCoord, (bYCoord + i)].traversable)
+					{
+						validTiles++;
+					}
+				}
 
+				if (validTiles == yMoveDist)//if they all are traversable
+				{
+					print("do move");//do move
+					for (int i = 1; i <= yMoveDist; i++)
+					{
+						MoveSquare(direction.up);
+						curMoves--;
+					}
+				}
+
+				else if (validTiles < yMoveDist)//if one or more isn't traversable
+				{
+					//dont move
+					print((yMoveDist - validTiles) + " not traversable");
+				}
+
+				else if (validTiles > yMoveDist)//if there's more traversable tiles than tiles (debugging)
+				{
+					print("error: yMoveDist = " + yMoveDist + ", validTiles = " + validTiles);
+				}
+
+				else//somehow something else (debugging)
+				{
+					print("wtf");
+				}
 			}
 
-			else if ((xTarget == bXCoord) && (yTarget < bYCoord))//MOVING DOWN
+			//----------------MOVING DOWN----------------
+			else if ((xTarget == bXCoord) && (yTarget < bYCoord))
 			{
+				for (int i = 1; i <= yMoveDist; i++)//check to see if all the tiles you'd have to cross are traversable
+				{
+					if (init_Floor.floor[bXCoord, (bYCoord - i)].traversable)
+					{
+						validTiles++;
+					}
+				}
+
+				if (validTiles == yMoveDist)//if they all are traversable
+				{
+					print("do move");//do move
+					for (int i = 1; i <= yMoveDist; i++)
+					{
+						MoveSquare(direction.down);
+						curMoves--;
+					}
+				}
+
+				else if (validTiles < yMoveDist)//if one or more isn't traversable
+				{
+					//dont move
+					print((yMoveDist - validTiles) + " not traversable");
+				}
+
+				else if (validTiles > yMoveDist)//if there's more traversable tiles than tiles (debugging)
+				{
+					print("error: yMoveDist = " + yMoveDist + ", validTiles = " + validTiles);
+				}
+
+				else//somehow something else (debugging)
+				{
+					print("wtf");
+				}
+			}
+
+			//ZERO MOVEMENT (TRYING TO MOVE TO THE TILE YOU'RE ON) diagonal movement also?
+			else
+			{
+				print("Move Cancelled");
+				playerControls.actionMode = PlayerControls.ActionMode.none;
 
 			}
 		}
 
 		else
 		{
-			print("Insufficient moves");
+			print("Insufficient moves - " + "curMoves = " + curMoves + ", xMoveDist = " + xMoveDist + ", yMoveDist = " + yMoveDist);
 			//do a nice ui thing for this later
 		}
 	}

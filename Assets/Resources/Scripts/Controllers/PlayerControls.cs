@@ -7,11 +7,11 @@ public class PlayerControls : MonoBehaviour {
 
 
     public bool playerHasControl;
-    public enum ActionMode { none, selecting, targeting, executing };//selecting is choosing one of your squad to give a command to - targeting is targeting a command - executing is when performing a command (overlaps with none)
+    public enum ActionMode { none, selecting, targeting_move, targeting_unit, targeting_aoe, executing };//selecting is choosing one of your squad to give a command to - targeting is targeting a command - executing is when performing a command (overlaps with none)
     public ActionMode actionMode;
 
-    public enum TargetingMode { none, move, unit, aoe };
-    public TargetingMode targetingMode;
+    //public enum TargetingMode { none, move, unit, aoe };
+    //public TargetingMode targetingMode;
 
 
     public BaseChar selected;//the unit you're giving commands to
@@ -50,15 +50,16 @@ public class PlayerControls : MonoBehaviour {
 			playerHasControl = false;
 		}
     }
+
 	int n;
     public void MoveUnit()
 	{
 		n = 0;
 		//moveTarget = null;
-		actionMode = ActionMode.targeting;
-		targetingMode = TargetingMode.move;
+		actionMode = ActionMode.targeting_move;
+		//targetingMode = TargetingMode.move;
 
-		while(n < 3)
+		while(n < 3)//while theres no tile selected
 		{
 			print("asdf");
 			n++;
@@ -66,6 +67,6 @@ public class PlayerControls : MonoBehaviour {
 
 		selected.PC_Move(moveTarget.bXCoord, moveTarget.bYCoord);
 
-		actionMode = ActionMode.selecting;
+		//actionMode = ActionMode.selecting;
 	}
 }

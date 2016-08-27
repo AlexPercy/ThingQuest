@@ -21,7 +21,4 @@ public class BlankTile : BaseTile {
 
         return floorTile;
 	}
-    
-    
-
 }
