@@ -25,9 +25,9 @@ public class GameController : MonoBehaviour {
         playerIsWinning = false;
 		handlingGameOver = false;
 
-        //playerControls.playerHasControl = false;
-        //Level_Start();
-    }
+		//playerControls.playerHasControl = false;
+		//Level_Start();
+	}
 
     /*void Level_Start()
     {

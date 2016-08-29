@@ -47,10 +47,15 @@ public class BaseChar : MonoBehaviour {
 		init_Floor = GameObject.Find("Level Controller").GetComponent<Init_Floor>();
     }
 
+	public float rcXCoord;
+	public float rcYCoord;
+
 	public void RefreshCoords()
 	{
-		bXCoord = (int)(gameObject.transform.position.x / coordConv);
-		bYCoord = (int)(gameObject.transform.position.y / coordConv);
+		//bXCoord = (int)(gameObject.transform.position.x / coordConv);
+		bXCoord = System.Convert.ToInt32(gameObject.transform.position.x / coordConv);//apparently just casting it to the correct type was fucking with it for some reason (16/3.2 = 4???)
+		//bYCoord = (int)(gameObject.transform.position.y / coordConv);
+		bYCoord = System.Convert.ToInt32(gameObject.transform.position.y / coordConv);
 	}
 
     void OnMouseOver()
@@ -106,7 +111,10 @@ public class BaseChar : MonoBehaviour {
 			gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - coordConv);
 		}
 
+		//System.Threading.Thread.Sleep(500);
+
 		RefreshCoords();
+		//GetTileEffect();
 		print(gameObject.transform.name.ToString() + " moved " + d.ToString() + "!");
 	}
 

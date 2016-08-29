@@ -9,7 +9,7 @@ public class Init_Floor : MonoBehaviour {
 	public int floorXSize;
 	public int floorYSize;
 
-    void Awake ()
+    void Start ()
     {
 
         floor = new BaseTile[floorXSize, floorYSize];
