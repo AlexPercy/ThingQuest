@@ -6,7 +6,7 @@ public class Init_PCs : MonoBehaviour {
     void Start()
     {
 
-        PC_Knight.Create(BaseChar.races.orc, 4, 4);
+        PC_Knight.Create(BaseChar.races.orc, 10, 10);
 
     }
 

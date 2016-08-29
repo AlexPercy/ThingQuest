@@ -9,8 +9,8 @@ public class Init_Enemies : MonoBehaviour {
     {
         aiControls = this.gameObject.GetComponent<AIControls>();
 
-        aiControls.aiUnits[0] = En_Barbarian.Create(BaseChar.races.human, 2, 2);
-        aiControls.aiUnits[1] = En_Barbarian.Create(BaseChar.races.human, 4, 2);
+        aiControls.aiUnits[0] = En_Barbarian.Create(BaseChar.races.human, 7, 7);
+        aiControls.aiUnits[1] = En_Barbarian.Create(BaseChar.races.human, 13, 13);
 
     }
 
