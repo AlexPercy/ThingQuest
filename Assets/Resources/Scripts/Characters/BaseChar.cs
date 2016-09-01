@@ -10,6 +10,8 @@ public class BaseChar : MonoBehaviour {
 	public Init_Floor init_Floor;
 
 
+	public string name_;
+
 	public enum races { human, elf, orc, dwarf };
     public races race;
 
@@ -21,6 +23,9 @@ public class BaseChar : MonoBehaviour {
 
     public int maxEnergy;
     public int curEnergy;
+
+	public int maxActions;
+	public int curActions;
 
     public int maxMoves;
     public int curMoves;
@@ -60,31 +65,42 @@ public class BaseChar : MonoBehaviour {
 
     void OnMouseOver()
     {
-        if (Input.GetMouseButtonUp(0))//if we're left clicking
+        if (Input.GetMouseButtonUp(0))
         {
-            if (playerControls.actionMode == PlayerControls.ActionMode.selecting)
-            {
-                playerControls.selected = this;//you can select both controllable and non-controllable units (so you can see unit descs or w/e)
-
-				//playerControls.actionMode = PlayerControls.ActionMode.targeting;
-				//playerControls.targetingMode = PlayerControls.TargetingMode.move;
-            }
-
-			if (playerControls.actionMode == PlayerControls.ActionMode.targeting_unit)//if we're currently trying to target something
-			{
-				playerControls.unitTarget = this;
-			}
-
-			/*else if (false)//clicking through?
-            {
-			
-			}*/
+			OnLeftClick();
         }
+
+		if (Input.GetMouseButtonUp(1))
+		{
+			OnRightClick();
+		}
     }
+
+	void OnLeftClick()
+	{
+		if (playerControls.actionMode == PlayerControls.ActionMode.selecting)
+		{
+			playerControls.selected = this;//you can select both controllable and non-controllable units (so you can see unit descs or w/e)
+
+			//playerControls.actionMode = PlayerControls.ActionMode.targeting;
+			//playerControls.targetingMode = PlayerControls.TargetingMode.move;
+		}
+
+		if (playerControls.actionMode == PlayerControls.ActionMode.targeting_unit)//if we're currently trying to target something
+		{
+			playerControls.unitTarget = this;
+		}
+
+		/*else if (false)//clicking through?
+		{
+
+		}*/
+	}
 
 	public void OnRightClick()
 	{
 		//if its a player-controlled unit
+		print("right clock");
 		//	do the right-click menu
 	}
 

@@ -4,7 +4,7 @@ using System.Collections;
 public class GameController : MonoBehaviour {
 
     PlayerControls playerControls;
-    //AIControls aiControls;
+    AIControls aiControls;
 
     public bool playersTurn;
 	public bool gameplayHapen;
@@ -17,9 +17,9 @@ public class GameController : MonoBehaviour {
     void Start()
     {
         playerControls = this.gameObject.GetComponent<PlayerControls>();
-		//aiControls = this.gameObject.GetComponent<AIControls>();
+		aiControls = this.gameObject.GetComponent<AIControls>();
 		
-		gameplayHapen = true;//this should probably start false for cutscenes/whatever?
+		gameplayHapen = false;//this should probably start false for cutscenes/whatever?
 
 		gameOver = false;
         playerIsWinning = false;
@@ -92,15 +92,36 @@ public class GameController : MonoBehaviour {
 		}
     }
 
+	public void StartGameplay(bool playerGoesFirst)
+	{
+		playersTurn = playerGoesFirst;
+		gameplayHapen = true;
+		playerControls.actionMode = PlayerControls.ActionMode.selecting;
+	}
+
     public void EndTurn(bool isPlayer)
 	{
 		if(isPlayer)
 		{
+			foreach(BaseChar En in aiControls.aiUnits)
+			{
+				En.curActions = En.maxActions;
+				En.curMoves = En.maxMoves;
+				print(En.name_ + " refreshed!");
+			}
+
 			playersTurn = false;
 		}
 
 		else
 		{
+			foreach(BaseChar PC in playerControls.playerUnits)
+			{
+				PC.curActions = PC.maxActions;
+				PC.curMoves = PC.maxMoves;
+				print(PC.name_ + " refreshed!");
+			}
+
 			playersTurn = true;
 		}
 	}

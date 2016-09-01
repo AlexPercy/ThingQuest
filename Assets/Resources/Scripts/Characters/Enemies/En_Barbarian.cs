@@ -10,16 +10,21 @@ public class En_Barbarian : BaseEnemy {
         prefab = Resources.Load("Prefabs/Characters/En_Barbarian");
 
         En_Barbarian character = (Instantiate(prefab, new Vector3(((float)x * coordConv), ((float)y * coordConv)), Quaternion.identity) as GameObject).GetComponent<En_Barbarian>();
-        
+
+		character.name_ = "Barbo";
         character.race = r;
         character.class_ = classes.barbarian;
 
-        character.maxHealth = 5;
-        character.curHealth = character.maxHealth;
-        character.maxEnergy = 3;
-        character.curEnergy = character.maxEnergy;
-        character.maxMoves  = 3;
-        character.curMoves  = character.maxMoves;
+        character.maxHealth  = 5;
+        character.curHealth  = character.maxHealth;
+        character.maxEnergy  = 3;
+        character.curEnergy  = character.maxEnergy;
+
+		character.maxActions = 2;
+		character.curActions = character.maxActions;
+
+        character.maxMoves   = 3;
+        character.curMoves   = character.maxMoves;
         
         character.bXCoord = x;
         character.bYCoord = y;

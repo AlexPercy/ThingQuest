@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerControls : MonoBehaviour {
 
     GameController gameController;
-
+	public BaseChar[] playerUnits;
 
     public bool playerHasControl;
     public enum ActionMode { none, selecting, targeting_move, targeting_unit, targeting_aoe, executing };//selecting is choosing one of your squad to give a command to - targeting is targeting a command - executing is when performing a command (overlaps with none)

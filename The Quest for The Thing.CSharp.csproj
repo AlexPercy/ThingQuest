@@ -69,6 +69,7 @@
     <Compile Include="Assets\Resources\Scripts\Characters\PCs\BasePC.cs" />
     <Compile Include="Assets\Resources\Scripts\Characters\PCs\PC_Knight.cs" />
     <Compile Include="Assets\Resources\Scripts\Controllers\AIControls.cs" />
+    <Compile Include="Assets\Resources\Scripts\Controllers\CameraControls.cs" />
     <Compile Include="Assets\Resources\Scripts\Controllers\GameController.cs" />
     <Compile Include="Assets\Resources\Scripts\Controllers\PlayerControls.cs" />
     <Compile Include="Assets\Resources\Scripts\Level Initialisers\base init.cs" />
