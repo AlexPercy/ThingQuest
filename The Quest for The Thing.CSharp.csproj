@@ -79,6 +79,7 @@
     <Compile Include="Assets\Resources\Scripts\Tiles\BaseTile.cs" />
     <Compile Include="Assets\Resources\Scripts\Tiles\BlankTile.cs" />
     <Compile Include="Assets\Resources\Scripts\Tiles\BlueTile.cs" />
+    <Compile Include="Assets\Resources\Scripts\Tiles\NullTile.cs" />
     <Compile Include="Assets\Resources\Scripts\Tiles\RedTile.cs" />
     <Compile Include="Assets\Resources\Scripts\test.cs" />
   </ItemGroup>

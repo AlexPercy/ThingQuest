@@ -4,7 +4,9 @@ using System.Collections;
 public class PlayerControls : MonoBehaviour {
 
     GameController gameController;
-	public BaseChar[] playerUnits;
+
+	public BasePC[] playerUnits;
+	public int numPlayerUnits;
 
     public bool playerHasControl;
     public enum ActionMode { none, selecting, targeting_move, targeting_unit, targeting_aoe, executing };//selecting is choosing one of your squad to give a command to - targeting is targeting a command - executing is when performing a command (overlaps with none)
@@ -25,6 +27,11 @@ public class PlayerControls : MonoBehaviour {
     public BaseTile aoeTarget;//centrepoint target for aoe things
     //public int aoeTargetX;
     //public int aoeTargetY;
+
+	void Awake()
+	{
+		playerUnits = new BasePC[numPlayerUnits];
+	}
 
     void Start()
     {
@@ -51,18 +58,17 @@ public class PlayerControls : MonoBehaviour {
 		}
     }
 
-	int n;
+	//int n;
     public void MoveUnit()
 	{
-		n = 0;
-		//moveTarget = null;
+		//n = 0;
+		moveTarget = null;
 		actionMode = ActionMode.targeting_move;
-		//targetingMode = TargetingMode.move;
 
-		while(n < 3)//while theres no tile selected
+		while(moveTarget == null)//while theres no tile selected
 		{
 			print("asdf");
-			n++;
+			//n++;
 		}
 
 		selected.PC_Move(moveTarget.bXCoord, moveTarget.bYCoord);

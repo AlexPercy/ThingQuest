@@ -9,6 +9,7 @@ public class Init_Floor : MonoBehaviour {
 	public int floorXSize;
 	public int floorYSize;
 
+
     void Start ()
     {
 
@@ -35,9 +36,10 @@ public class Init_Floor : MonoBehaviour {
                 }
 
             }
-        }
+		}
 
-    }
+		NullTile.Create(-1, -1);
+	}
 	
     
 
